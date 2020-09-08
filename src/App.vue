@@ -4,13 +4,20 @@
       <span class="title">Todo</span>List
     </h1>
     <form class="inputDiv" @submit.prevent="addTodo()">
-      <input v-model="newTodo" type="text" id="input" class="form-control" placeholder="What Do You Want to Do..." />
+      <input
+        v-model="newTodo"
+        type="text"
+        id="input"
+        class="form-control"
+        placeholder="What Do You Want to Do..."
+      />
       <button class="add">Add</button>
     </form>
     <div class="container">
       <li v-for="value in todos" v-bind:key="value">
-        <input type="checkbox">
-        {{value}}</li>
+        <input type="checkbox" />
+        {{value}}
+      </li>
     </div>
   </div>
 </template>
@@ -112,26 +119,5 @@ h1 {
   color: #fff;
   font-size: 1.4rem;
   width: 245px;
-}
-
-.edit {
-  background: none;
-  outline: none;
-  border: none;
-  color: lime;
-  font-size: 1.4rem;
-  font-family: "Hind", sans-serif;
-  margin: 0 0.5rem;
-  cursor: pointer;
-}
-
-.remove {
-  background: none;
-  outline: none;
-  border: none;
-  color: #e00;
-  font-size: 1.4rem;
-  font-family: "Hind", sans-serif;
-  cursor: pointer;
 }
 </style>
