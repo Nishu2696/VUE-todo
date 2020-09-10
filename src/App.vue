@@ -14,10 +14,12 @@
       <button class="add">Add</button>
     </form>
     <dispplaytodo
-      v-for="(value, index) in todos.length"
+      v-for="(value, index) in todos"
       :key="value.title"
       :index="index"
-      :mylist="todos.map(a => a.title)"
+      :mylist="value"
+      @deletetodo="deleteTodo(todo)"
+      @deletedtodo="deleteTodo($event)"
     />
     <!-- <div class="container">
       <div class="item">
@@ -69,6 +71,10 @@ export default {
       return this.todos;
       // this.$emit(this.todos);
       // this.newTodo = "";
+    },
+    deleteTodo(values) {
+      // this.todos = this.todos.filter((todo) => todo !== values);
+      this.todos.splice(values,1);
     },
   },
 };
