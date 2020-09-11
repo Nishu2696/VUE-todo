@@ -1,8 +1,6 @@
 <template>
   <div class="all">
-    <h1>
-      <span class="title">Todo</span>List
-    </h1>
+    <h1><span class="title">Todo</span>List</h1>
     <form class="inputDiv" @submit.prevent="addTodo()">
       <input
         v-model="newTodo"
@@ -13,14 +11,17 @@
       />
       <button class="add">Add</button>
     </form>
-    <dispplaytodo
-      v-for="(value, index) in todos"
-      :key="value.title"
-      :index="index"
-      :mylist="value"
-      @deletetodo="deleteTodo(todo)"
-      @deletedtodo="deleteTodo($event)"
-    />
+    <div class="container">
+      <dispplaytodo
+        v-for="value in todos"
+        :key="value.title"
+        :completed="value.completed"
+        :mylist="value"
+        @done="striketodo(value)"
+        @deletetodo="deleteTodo(value)"
+        @deletedtodo="deleteTodo($event)"
+      />
+    </div>
     <!-- <div class="container">
       <div class="item">
         <input class="item_input" type="text" v-for="values in todos" v-bind:key="values" disabled="true" value="values">
@@ -73,9 +74,12 @@ export default {
       // this.newTodo = "";
     },
     deleteTodo(values) {
-      // this.todos = this.todos.filter((todo) => todo !== values);
-      this.todos.splice(values,1);
+      this.todos = this.todos.filter((todo) => todo !== values);
+      // this.todos.splice(values, 1);
     },
+    striketodo(item){
+      item.completed = !item.completed;
+    }
   },
 };
 </script>
@@ -137,14 +141,14 @@ h1 {
   opacity: 0.7;
 }
 
-/* .container {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin-top: 2rem;
-} */
+}
 
 /* .item {
   padding: 0.5rem;

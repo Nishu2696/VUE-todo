@@ -1,20 +1,19 @@
 <template>
-  <div class="container">
-    <li class="item">
-      {{ mylist.title }}{{ index
-      }}
-      <button class="space" v-on:click="$emit('deletetodo')">Delete</button>
-      <!-- <button class="space" @click="deletetodo(mylist.title)">Delete</button> -->
-    </li>
-  </div>
+  <li class="item">
+    <button id="design" :class="{ completed }" v-on:click="$emit('done')">
+      {{ mylist.title }}
+    </button>
+    <button class="space" v-on:click="$emit('deletetodo')">Delete</button>
+    <!-- <button class="space" @click="deletetodo(mylist.title)">Delete</button> -->
+  </li>
 </template>
 
 <script>
 export default {
   name: "dispplaytodo",
-  props: ["mylist", "index"],
-  method:{
-    deletetodo(index){
+  props: ["mylist", "completed"],
+  method: {
+    deletetodo(index) {
       console.log(index);
       this.$emit("deletedtodo", index);
     },
@@ -40,5 +39,17 @@ export default {
 
 .space {
   margin-left: 10px;
+  padding: 15px 32px;
+  border: 2px solid #e7e7e7;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+#design{
+  padding: 15px 32px;
+  text-align: center;
+  border: 2px solid #e7e7e7;
 }
 </style>
