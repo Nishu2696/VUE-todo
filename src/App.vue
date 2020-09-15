@@ -1,7 +1,7 @@
 <template>
   <div class="all">
     <h1><span class="title">Todo</span>List</h1>
-    <form class="inputDiv" @submit.prevent="addTodo()">
+    <form class="inputDiv" @submit.prevent="addTask">
       <input
         v-model="newTodo"
         type="text"
@@ -13,36 +13,11 @@
     </form>
     <div class="container">
       <dispplaytodo
-        v-for="value in todos"
-        :key="value.title"
-        :completed="value.completed"
+        v-for="value in displayLists"
+        :key="value.id"
         :mylist="value"
-        @done="striketodo(value)"
-        @deletetodo="deleteTodo(value)"
-        @deletedtodo="deleteTodo($event)"
       />
     </div>
-    <!-- <div class="container">
-      <div class="item">
-        <input class="item_input" type="text" v-for="values in todos" v-bind:key="values" disabled="true" value="values">
-          <input type="checkbox" />
-          {{values}}
-      </div>
-    </div>-->
-    <!-- <div class="container">
-      <div class="item">
-        <li class="item_input" v-for="value in todos" v-bind:key="value">
-          <input type="checkbox" />
-          {{value}}
-        </li>
-      </div>
-    </div>-->
-    <!-- <div class="container">
-      <li class="item" v-for="(value, index) in todos" v-bind:key="index">
-        <input type="checkbox" />
-        {{value.title}}
-      </li>
-    </div>-->
   </div>
 </template>
 
@@ -56,30 +31,39 @@ export default {
   },
   data() {
     return {
-      todos: [
-        // {title: "sweets", completed: false},
-      ],
       newTodo: "",
     };
   },
-  methods: {
-    addTodo() {
-      alert("hello");
-      console.log(this.newTodo);
-      this.todos.push({ title: this.newTodo, completed: false });
-      console.log(this.todos);
-      this.newTodo = "";
-      return this.todos;
-      // this.$emit(this.todos);
-      // this.newTodo = "";
+  computed:{
+    todos: function(){
+      return this.$store.state.todos
     },
-    deleteTodo(values) {
-      this.todos = this.todos.filter((todo) => todo !== values);
-      // this.todos.splice(values, 1);
-    },
-    striketodo(item){
-      item.completed = !item.completed;
+    displayLists: function(){
+      return this.$store.getters.displayLists;
     }
+  },
+  methods: {
+    addTask: function(){
+      this.$store.dispatch("addTask", {title: this.newTodo});
+      this.newTodo = "";
+    }
+    // addTodo() {
+    //   alert("hello");
+    //   console.log(this.newTodo);
+    //   this.todos.push({ title: this.newTodo, completed: false });
+    //   console.log(this.todos);
+    //   this.newTodo = "";
+    //   return this.todos;
+    //   // this.$emit(this.todos);
+    //   // this.newTodo = "";
+    // },
+    // deleteTodo(values) {
+    //   this.todos = this.todos.filter((todo) => todo !== values);
+    //   // this.todos.splice(values, 1);
+    // },
+    // striketodo(item) {
+    //   item.completed = !item.completed;
+    // },
   },
 };
 </script>

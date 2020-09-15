@@ -1,27 +1,33 @@
 <template>
   <li class="item">
-    <button id="design" :class="{ completed }" v-on:click="$emit('done')">
+    <button
+      id="design"
+      :class="{ completed: mylist.completed }"
+      v-on:click="completetodo(mylist)"
+    >
       {{ mylist.title }}
     </button>
-    <button class="space" v-on:click="$emit('deletetodo')">Delete</button>
-    <!-- <button class="space" @click="deletetodo(mylist.title)">Delete</button> -->
+    <button class="space" v-on:click="removetodo(mylist)">Delete</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "dispplaytodo",
-  props: ["mylist", "completed"],
-  method: {
-    deletetodo(index) {
-      console.log(index);
-      this.$emit("deletedtodo", index);
+  props: ["mylist"],
+  methods: {
+    removetodo: function(mylist) {
+      alert(mylist);
+      this.$store.dispatch("removetodo", mylist);
+    },
+    completetodo: function(mylist) {
+      this.$store.dispatch("completetodo", mylist);
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .container {
   display: flex;
   flex-direction: column;
@@ -47,7 +53,7 @@ export default {
   text-decoration: line-through;
 }
 
-#design{
+#design {
   padding: 15px 32px;
   text-align: center;
   border: 2px solid #e7e7e7;
